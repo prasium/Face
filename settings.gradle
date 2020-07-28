@@ -1,0 +1,3 @@
+include ':unity-ads'
+rootProject.name='Face2Face'
+include ':app', ':core'

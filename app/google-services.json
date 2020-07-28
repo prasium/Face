@@ -1,0 +1,175 @@
+{
+  "project_info": {
+    "project_number": "288233177453",
+    "firebase_url": "https://elibrary-b905a.firebaseio.com",
+    "project_id": "elibrary-b905a",
+    "storage_bucket": "elibrary-b905a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288233177453:android:c3b4eb7f9881f477775a64",
+        "android_client_info": {
+          "package_name": "com.ichatmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcUqkwiOQh7zSb3SNv79xlsK0eTDK0Ufw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8215409879372362~9937714637"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288233177453:android:74e4d5205ea99594775a64",
+        "android_client_info": {
+          "package_name": "com.karthik.ichat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcUqkwiOQh7zSb3SNv79xlsK0eTDK0Ufw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288233177453:android:a2dec7f5bb375058775a64",
+        "android_client_info": {
+          "package_name": "com.karthikmittu.videoly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcUqkwiOQh7zSb3SNv79xlsK0eTDK0Ufw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288233177453:android:e7a5ae94714cc7eb775a64",
+        "android_client_info": {
+          "package_name": "com.karthiknaik.mathslearnpoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288233177453-fnq8itip1j4ughijlhnh1iamlo2ggsih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.karthiknaik.mathslearnpoint",
+            "certificate_hash": "3b2144e6728448f581816f54bc532fdb0ac28aa7"
+          }
+        },
+        {
+          "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcUqkwiOQh7zSb3SNv79xlsK0eTDK0Ufw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8215409879372362~3460538837"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288233177453:android:f3aee10d1dee8985775a64",
+        "android_client_info": {
+          "package_name": "karthiknaik.Face2Face.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288233177453-dgoprp10o48licu829r0t55ps7tg6gpn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "karthiknaik.Face2Face.app",
+            "certificate_hash": "e7f26bd8df5ccff4795c3dbf7fda1af230ea97c3"
+          }
+        },
+        {
+          "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcUqkwiOQh7zSb3SNv79xlsK0eTDK0Ufw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288233177453-caiogqcf1bt8lfpiuv30qacqnts0kg29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8215409879372362~5840178218"
+    }
+  ],
+  "configuration_version": "1"
+}
