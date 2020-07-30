@@ -4,9 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.widget.doOnTextChanged
@@ -33,8 +30,6 @@ import com.unity3d.ads.IUnityAdsListener
 import com.unity3d.ads.UnityAds
 import com.unity3d.ads.UnityAds.FinishState
 import com.unity3d.ads.UnityAds.UnityAdsError
-import com.unity3d.services.banners.IUnityBannerListener
-import com.unity3d.services.banners.UnityBanners
 import karthiknaik.Face2Face.app.Face2Face
 import karthiknaik.Face2Face.app.R
 import karthiknaik.Face2Face.app.databinding.ActivityMainBinding
@@ -47,50 +42,15 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.dialog_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
+
 class MainActivity : AppCompatActivity() {
+
+    //Unity Ad variables
     private val unityGameID = "3736875"
-    private val testMode = true
+    private val testMode = true    // set testMode false for realAds!
     private val create_id = "create"
-    private val interstitial_id = "join"
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // Interstital
-        val interstitalAdsListener =
-            UnityInterstitalAdsListener()
-        UnityAds.initialize(this, unityGameID, interstitalAdsListener, testMode)
-
-        // Interstital
-        val interstitalAdsListener =
-            UnityInterstitalAdsListener()
-        UnityAds.initialize(this, unityGameID, interstitalAdsListener, testMode)
-        val createBtn = findViewById<Button>(R.id.btnCreateMeeting)
-        val interstitalBtn = findViewById<Button>(R.id.btnJoinMeeting)
-        createBtn.setOnClickListener { UnityAds.show(this@MainActivity, create_id) }
-        interstitalBtn.setOnClickListener { UnityAds.show(this@MainActivity, interstitial_id) }
-    }
-
-
-    private class UnityInterstitalAdsListener : IUnityAdsListener {
-        override fun onUnityAdsReady(s: String) {}
-        override fun onUnityAdsStart(s: String) {}
-        override fun onUnityAdsFinish(
-            s: String,
-            finishState: FinishState
-        ) {
-        }
-
-        override fun onUnityAdsError(
-            unityAdsError: UnityAdsError,
-            s: String
-        ) {
-        }
-    }
-}
-
-
-class MainActivity : AppCompatActivity() {
+    private val join_id = "join"
 
     companion object {
         fun startActivity(context: Context) {
@@ -104,8 +64,8 @@ class MainActivity : AppCompatActivity() {
 
     private val minMeetingCodeLength = 10
     private var currentUser: FirebaseUser? = null
-    private lateinit var createMeetingInterstitialAd: InterstitialAd
-    private lateinit var joinMeetingInterstitialAd: InterstitialAd
+//    private lateinit var createMeetingInterstitialAd: InterstitialAd  for google ads
+//    private lateinit var joinMeetingInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,12 +76,12 @@ class MainActivity : AppCompatActivity() {
         setProfileIcon()
 
         // Load ads based on configuration
-        if (Face2Face.isAdEnabled) {
-            initializeCreateMeetingInterstitialAd()
-            loadCreateMeetingInterstitialAd()
-            initializeJoinMeetingInterstitialAd()
-            loadJoinMeetingInterstitialAd()
-        }
+  //      if (Face2Face.isAdEnabled) {
+//            initializeCreateMeetingInterstitialAd()
+//            loadCreateMeetingInterstitialAd()
+//            initializeJoinMeetingInterstitialAd()
+//            loadJoinMeetingInterstitialAd()
+//        }
 
         handleDynamicLink()
 
@@ -145,39 +105,39 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeCreateMeetingInterstitialAd() {
-        createMeetingInterstitialAd = InterstitialAd(this)
-        createMeetingInterstitialAd.adUnitId = getString(R.string.interstitial_ad_id_create_meeting)
+//    private fun initializeCreateMeetingInterstitialAd() {
+//        createMeetingInterstitialAd = InterstitialAd(this)
+//        createMeetingInterstitialAd.adUnitId = getString(R.string.interstitial_ad_id_create_meeting)
+//
+//        // Reload ad once shown
+//        createMeetingInterstitialAd.adListener = object : AdListener() {
+//            override fun onAdClosed() {
+//                createMeeting(getCreateMeetingCode())
+//                loadCreateMeetingInterstitialAd()
+//            }
+//        }
+//    }
 
-        // Reload ad once shown
-        createMeetingInterstitialAd.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                createMeeting(getCreateMeetingCode())
-                loadCreateMeetingInterstitialAd()
-            }
-        }
-    }
+//    private fun loadCreateMeetingInterstitialAd() {
+//        createMeetingInterstitialAd.loadAd(AdRequest.Builder().build())
+//    }
+//
+//    private fun initializeJoinMeetingInterstitialAd() {
+//        joinMeetingInterstitialAd = InterstitialAd(this)
+//        joinMeetingInterstitialAd.adUnitId = getString(R.string.interstitial_ad_id_join_meeting)
+//
+//        // Reload ad once shown
+//        joinMeetingInterstitialAd.adListener = object : AdListener() {
+//            override fun onAdClosed() {
+//                joinMeeting(getJoinMeetingCode())
+//                loadJoinMeetingInterstitialAd()
+//            }
+//        }
+//    }
 
-    private fun loadCreateMeetingInterstitialAd() {
-        createMeetingInterstitialAd.loadAd(AdRequest.Builder().build())
-    }
-
-    private fun initializeJoinMeetingInterstitialAd() {
-        joinMeetingInterstitialAd = InterstitialAd(this)
-        joinMeetingInterstitialAd.adUnitId = getString(R.string.interstitial_ad_id_join_meeting)
-
-        // Reload ad once shown
-        joinMeetingInterstitialAd.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                joinMeeting(getJoinMeetingCode())
-                loadJoinMeetingInterstitialAd()
-            }
-        }
-    }
-
-    private fun loadJoinMeetingInterstitialAd() {
-        joinMeetingInterstitialAd.loadAd(AdRequest.Builder().build())
-    }
+//    private fun loadJoinMeetingInterstitialAd() {
+//        joinMeetingInterstitialAd.loadAd(AdRequest.Builder().build())
+//    }
 
     private fun handleDynamicLink() {
         Firebase.dynamicLinks
@@ -285,12 +245,21 @@ class MainActivity : AppCompatActivity() {
      * Called when the JOIN button is clicked of the JOIN MEETING toggle
      */
     private fun onJoinMeetingClick() {
+        UnityAds.initialize(this,unityGameID,testMode)// Initializing unity ad
+
+        val unityAdsListener = UnityAdsCallBacks()
+        UnityAds.setListener(unityAdsListener) //sets AdsListener object for the methods defined above
+
         binding.btnJoinMeeting.setOnClickListener {
             if (isMeetingCodeValid(getJoinMeetingCode())) {
                 if (Face2Face.isAdEnabled) {
-                    if (joinMeetingInterstitialAd.isLoaded) joinMeetingInterstitialAd.show() else joinMeeting(
-                        getJoinMeetingCode()
-                    )
+//                    if (joinMeetingInterstitialAd.isLoaded)
+//                        joinMeetingInterstitialAd.show()
+                    UnityAds.load(join_id)                      //call back to load Unity Ad
+                    if(UnityAds.isReady(join_id)){              // If Ads is in ready state then show
+                        UnityAds.show(this,join_id)
+                    }
+
                 } else {
                     joinMeeting(getJoinMeetingCode())
                 }
@@ -323,10 +292,18 @@ class MainActivity : AppCompatActivity() {
      * Called when the CREATE button is clicked of the CREATE MEETING toggle
      */
     private fun onCreateMeetingClick() {
+        UnityAds.initialize(this,unityGameID,testMode)// Initializing unity ad
+
+        val unityAdsListener = UnityAdsCallBacks()
+        UnityAds.setListener(unityAdsListener) //sets AdsListener object for the methods defined above
+
         binding.btnCreateMeeting.setOnClickListener {
             if (isMeetingCodeValid(getCreateMeetingCode())) {
                 if (Face2Face.isAdEnabled) {
-                    if (createMeetingInterstitialAd.isLoaded) createMeetingInterstitialAd.show() else createMeeting(
+                    UnityAds.load(create_id)                      //call back to load Unity Ad
+                    if(UnityAds.isReady(create_id)){              // If Ads is in ready state then show
+                        UnityAds.show(this,create_id)
+                    } else createMeeting(
                         getCreateMeetingCode()
                     )
                 } else {
@@ -474,5 +451,28 @@ class MainActivity : AppCompatActivity() {
     private fun setThemeMode(themeMode: Int) {
         AppCompatDelegate.setDefaultNightMode(themeMode)
         AppPref.isLightThemeEnabled = themeMode == AppCompatDelegate.MODE_NIGHT_NO
+    }
+
+    //for both instertitial ads callbacks are defined here
+    fun UnityAdsCallBacks(): IUnityAdsListener {
+
+        return object : IUnityAdsListener    {
+            override fun onUnityAdsStart(p0: String?) {
+
+            }
+
+            override fun onUnityAdsFinish(p0: String?, p1: FinishState?) {
+
+            }
+
+            override fun onUnityAdsError(p0: UnityAdsError?, p1: String?) {
+
+            }
+
+            override fun onUnityAdsReady(p0: String?) {
+
+            }
+
+        }
     }
 }

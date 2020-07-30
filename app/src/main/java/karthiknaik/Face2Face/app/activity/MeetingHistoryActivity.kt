@@ -14,7 +14,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -27,6 +29,10 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
 import com.mikepenz.fastadapter.listeners.ClickEventHook
+import com.unity3d.ads.UnityAds
+import com.unity3d.services.banners.IUnityBannerListener
+import com.unity3d.services.banners.UnityBanners
+import kotlinx.android.synthetic.main.activity_meeting_history.*
 import kotlinx.android.synthetic.main.item_meeting_history.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,6 +44,12 @@ class MeetingHistoryActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+
+    //Unity Banner Ad
+    private val unityGameID = "3736875"
+    private val testMode = true // set testMode to false for real ads!
+    private val banner_id = "banner"
+
 
     private lateinit var binding: ActivityMeetingHistoryBinding
     private val viewModel by viewModel<MeetingHistoryViewModel>() // Lazy inject ViewModel
@@ -55,7 +67,46 @@ class MeetingHistoryActivity : AppCompatActivity() {
         setupRecyclerView(savedInstanceState)
         setupObservables()
 
-        if (Face2Face.isAdEnabled) setupBannerAd() else binding.adViewContainer.makeGone()
+        if (Face2Face.isAdEnabled)
+        {
+            //Unity Ads for Banner Listener
+        UnityAds.initialize(this,unityGameID,testMode)
+
+        val unityBannerListener = object : IUnityBannerListener {
+            override fun onUnityBannerLoaded(p0: String?, p1: View?) {
+                //Attach layout to show banner ad
+                Log.d("avex","did")
+                findViewById<ViewGroup>(R.id.bannerAd).addView(p1)
+            }
+
+            override fun onUnityBannerShow(p0: String?) {
+                Log.d("sh","owing")
+            }
+
+            override fun onUnityBannerClick(p0: String?) {
+            Log.d("bla","lalala")
+            }
+
+            override fun onUnityBannerHide(p0: String?) {
+
+            }
+
+            override fun onUnityBannerError(p0: String?) {
+
+            }
+
+            override fun onUnityBannerUnloaded(p0: String?) {
+                Log.d("avx","didnt")
+            }
+        }
+            UnityBanners.setBannerListener(unityBannerListener)
+            UnityBanners.loadBanner(this,banner_id)
+            //Loads up ad in the banner
+    }
+        else
+        {
+            bannerAd.makeGone()
+        }
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {
@@ -64,20 +115,20 @@ class MeetingHistoryActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    override fun onPause() {
-        if (Face2Face.isAdEnabled) adView.pause()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        if (Face2Face.isAdEnabled) adView.resume()
-        super.onResume()
-    }
-
-    override fun onDestroy() {
-        if (Face2Face.isAdEnabled) adView.destroy()
-        super.onDestroy()
-    }
+//    override fun onPause() {
+//        if (Face2Face.isAdEnabled) adView.pause()
+//        super.onPause()
+//    }
+//
+//    override fun onResume() {
+//        if (Face2Face.isAdEnabled) adView.resume()
+//        super.onResume()
+//    }
+//
+//    override fun onDestroy() {
+//        if (Face2Face.isAdEnabled) adView.destroy()
+//        super.onDestroy()
+//    }
 
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
@@ -90,7 +141,7 @@ class MeetingHistoryActivity : AppCompatActivity() {
         meetingHistoryAdapter.setHasStableIds(true)
         meetingHistoryAdapter.withSavedInstanceState(savedInstanceState)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+       binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = meetingHistoryAdapter
 
         onMeetingCodeClick()
@@ -114,19 +165,19 @@ class MeetingHistoryActivity : AppCompatActivity() {
         if (itemCount > 0) binding.groupEmpty.makeGone() else binding.groupEmpty.makeVisible()
     }
 
-    private fun setupBannerAd() {
-        adView = AdView(this)
-        binding.adViewContainer.addView(adView)
-        binding.adViewContainer.viewTreeObserver.addOnGlobalLayoutListener {
-            if (!initialLayoutComplete) {
-                initialLayoutComplete = true
-
-                adView.adUnitId = getString(R.string.banner_ad_id_meeting_history)
-                adView.adSize = getAdaptiveBannerAdSize(binding.adViewContainer)
-                adView.loadAd(AdRequest.Builder().build())
-            }
-        }
-    }
+//    private fun setupBannerAd() {
+//        adView = AdView(this)
+//        binding.adViewContainer.addView(adView)
+//        binding.adViewContainer.viewTreeObserver.addOnGlobalLayoutListener {
+//            if (!initialLayoutComplete) {
+//                initialLayoutComplete = true
+//
+//                adView.adUnitId = getString(R.string.banner_ad_id_meeting_history)
+//                adView.adSize = getAdaptiveBannerAdSize(binding.adViewContainer)
+//                adView.loadAd(AdRequest.Builder().build())
+//            }
+//        }
+//    }
 
     /**
      * Returns the size of the Adaptive Banner Ad based on the screen width
@@ -200,4 +251,5 @@ class MeetingHistoryActivity : AppCompatActivity() {
             }
         })
     }
+
 }
